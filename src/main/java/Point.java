@@ -7,7 +7,7 @@ public class Point {
     private int x;
     private int y;
     private int direction;
-    public int[] found_position;
+    public int to_delete = 0;
 
     public Point(int x, int y) {
         this.x = x;
@@ -27,8 +27,8 @@ public class Point {
         this.direction = refPoint.direction;
     }
 
-    public void setFound_position(int[] found_position) {
-        this.found_position = found_position;
+    public void setTo_delete(int delete) {
+        this.to_delete = delete;
     }
 
     public void faceRight() {
@@ -36,6 +36,7 @@ public class Point {
         direction = (direction + 1) % 4;
 
     }
+
 
     private void faceLeft() {
         if (direction == 0) {
