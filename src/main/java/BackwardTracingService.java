@@ -12,8 +12,19 @@ public class BackwardTracingService {
         points.add(new Point(startingPoint.getX()+1, startingPoint.getY()));
         do{
             Point backup = activePoint.getClone();
-            activePoint = BackwardTracingService.getDirection(image, ((LinkedList<Point>) points).getLast(), activePoint).getClone();
-            ((LinkedList<Point>) points).add(backup);
+            Point neighborPoint1 = BackwardTracingService.getDirection(image,
+                    ((LinkedList<Point>) points).getLast(), activePoint).getClone();
+            Point neighborPoint2 = BackwardTracingService.getLeftDirection(image,
+                    ((LinkedList<Point>) points).getLast(), activePoint).getClone();
+            if(!neighborPoint1.equals(neighborPoint2)){
+                activePoint = neighborPoint1;
+                ((LinkedList<Point>) points).add(backup);
+            }
+            else{
+                activePoint = neighborPoint1;
+                backup.setTo_delete(1); /*відкат роботи*/
+                ((LinkedList<Point>) points).add(backup);
+            }
         } while (!endPoint.equals(activePoint));
         return points;
     }
@@ -232,6 +243,222 @@ public class BackwardTracingService {
             }
             if(image[a_p.getY()][a_p.getX()-1] == 1){
                 return new Point(a_p.getX()-1, a_p.getY());
+            }
+        }
+        return new Point(0, 0);
+    }
+    public static Point getLeftDirection(int[][] image, Point c_p, Point a_p){
+        if(a_p.getX() == c_p.getX()+1 && a_p.getY() == c_p.getY()+1){
+            Point start = new Point(a_p.getX()+1, a_p.getY()-1);
+            if(image[a_p.getY()-1][a_p.getX()] == 1){
+                return new Point(a_p.getX(), a_p.getY()-1);
+            }
+            if(image[a_p.getY()-1][a_p.getX()-1] == 1){
+                return new Point(a_p.getX()-1, a_p.getY()-1);
+            }
+            if(image[a_p.getY()][a_p.getX()-1] == 1){
+                return new Point(a_p.getX()-1, a_p.getY());
+            }
+            if(image[a_p.getY()+1][a_p.getX()] == 1){
+                return new Point(a_p.getX(), a_p.getY()+1);
+            }
+            if(image[a_p.getY()+1][a_p.getX()-1] == 1){
+                return new Point(a_p.getX()-1, a_p.getY()+1);
+            }
+            if(image[a_p.getY()+1][a_p.getX()+1] == 1){
+                return new Point(a_p.getX()+1, a_p.getY()+1);
+            }
+            if(image[a_p.getY()][a_p.getX()+1] == 1){
+                return new Point(a_p.getX()+1, a_p.getY());
+            }
+            if(image[a_p.getY()-1][a_p.getX()+1] == 1){
+                return new Point(a_p.getX()+1, a_p.getY()-1);
+            }
+        }
+        if(a_p.getX() == c_p.getX() && a_p.getY() == c_p.getY()+1){
+            Point start = new Point(a_p.getX()+1, a_p.getY());
+            if(image[a_p.getY()-1][a_p.getX()+1] == 1){
+                return new Point(a_p.getX()+1, a_p.getY()-1);
+            }
+            if(image[a_p.getY()-1][a_p.getX()-1] == 1){
+                return new Point(a_p.getX()-1, a_p.getY()-1);
+            }
+            if(image[a_p.getY()][a_p.getX()-1] == 1){
+                return new Point(a_p.getX()-1, a_p.getY());
+            }
+            if(image[a_p.getY()+1][a_p.getX()-1] == 1){
+                return new Point(a_p.getX()-1, a_p.getY()+1);
+            }
+            if(image[a_p.getY()+1][a_p.getX()] == 1){
+                return new Point(a_p.getX(), a_p.getY()+1);
+            }
+            if(image[a_p.getY()+1][a_p.getX()+1] == 1){
+                return new Point(a_p.getX()+1, a_p.getY()+1);
+            }
+            if(image[a_p.getY()][a_p.getX()+1] == 1){
+                return new Point(a_p.getX()+1, a_p.getY());
+            }
+        }
+        if(a_p.getX() == c_p.getX()-1 && a_p.getY() == c_p.getY()+1){
+            Point start = new Point(a_p.getX()+1, a_p.getY()+1);
+            if(image[a_p.getY()][a_p.getX()+1] == 1){
+                return new Point(a_p.getX()+1, a_p.getY());
+            }
+            if(image[a_p.getY()-1][a_p.getX()+1] == 1){
+                return new Point(a_p.getX()+1, a_p.getY()-1);
+            }
+            if(image[a_p.getY()-1][a_p.getX()] == 1){
+                return new Point(a_p.getX(), a_p.getY()-1);
+            }
+            if(image[a_p.getY()-1][a_p.getX()-1] == 1){
+                return new Point(a_p.getX()-1, a_p.getY()-1);
+            }
+            if(image[a_p.getY()][a_p.getX()-1] == 1){
+                return new Point(a_p.getX()-1, a_p.getY());
+            }
+            if(image[a_p.getY()+1][a_p.getX()-1] == 1){
+                return new Point(a_p.getX()-1, a_p.getY()+1);
+            }
+            if(image[a_p.getY()+1][a_p.getX()] == 1){
+                return new Point(a_p.getX(), a_p.getY()+1);
+            }
+            if(image[a_p.getY()+1][a_p.getX()+1] == 1){
+                return new Point(a_p.getX()+1, a_p.getY()+1);
+            }
+        }
+        if(a_p.getX() == c_p.getX()-1 && a_p.getY() == c_p.getY()){
+            Point start = new Point(a_p.getX(), a_p.getY()+1);
+            if(image[a_p.getY()+1][a_p.getX()+1] == 1){
+                return new Point(a_p.getX()+1, a_p.getY()+1);
+            }
+            if(image[a_p.getY()][a_p.getX()+1] == 1){
+                return new Point(a_p.getX()+1, a_p.getY());
+            }
+            if(image[a_p.getY()-1][a_p.getX()+1] == 1){
+                return new Point(a_p.getX()+1, a_p.getY()-1);
+            }
+            if(image[a_p.getY()-1][a_p.getX()] == 1){
+                return new Point(a_p.getX(), a_p.getY()-1);
+            }
+            if(image[a_p.getY()-1][a_p.getX()-1] == 1){
+                return new Point(a_p.getX()-1, a_p.getY()-1);
+            }
+            if(image[a_p.getY()][a_p.getX()-1] == 1){
+                return new Point(a_p.getX()-1, a_p.getY());
+            }
+            if(image[a_p.getY()+1][a_p.getX()-1] == 1){
+                return new Point(a_p.getX()-1, a_p.getY()+1);
+            }
+            if(image[a_p.getY()+1][a_p.getX()] == 1){
+                return new Point(a_p.getX(), a_p.getY()+1);
+            }
+        }
+        if(a_p.getX() == c_p.getX()+1 && a_p.getY() == c_p.getY()){
+            Point start = new Point(a_p.getX(), a_p.getY()-1);
+            if(image[a_p.getY()-1][a_p.getX()-1] == 1){
+                return new Point(a_p.getX()-1, a_p.getY()-1);
+            }
+            if(image[a_p.getY()][a_p.getX()-1] == 1){
+                return new Point(a_p.getX()-1, a_p.getY());
+            }
+            if(image[a_p.getY()+1][a_p.getX()-1] == 1){
+                return new Point(a_p.getX()-1, a_p.getY()+1);
+            }
+            if(image[a_p.getY()+1][a_p.getX()] == 1){
+                return new Point(a_p.getX(), a_p.getY()+1);
+            }
+            if(image[a_p.getY()+1][a_p.getX()+1] == 1){
+                return new Point(a_p.getX()+1, a_p.getY()+1);
+            }
+            if(image[a_p.getY()][a_p.getX()+1] == 1){
+                return new Point(a_p.getX()+1, a_p.getY());
+            }
+            if(image[a_p.getY()-1][a_p.getX()+1] == 1){
+                return new Point(a_p.getX()+1, a_p.getY()-1);
+            }
+            if(image[a_p.getY()-1][a_p.getX()] == 1){
+                return new Point(a_p.getX(), a_p.getY()-1);
+            }
+        }
+        if(a_p.getX() == c_p.getX() && a_p.getY() == c_p.getY()-1){
+            Point start = new Point(a_p.getX()-1, a_p.getY());
+            if(image[a_p.getY()+1][a_p.getX()-1] == 1){
+                return new Point(a_p.getX()-1, a_p.getY()+1);
+            }
+            if(image[a_p.getY()+1][a_p.getX()] == 1){
+                return new Point(a_p.getX(), a_p.getY()+1);
+            }
+            if(image[a_p.getY()+1][a_p.getX()+1] == 1){
+                return new Point(a_p.getX()+1, a_p.getY()+1);
+            }
+            if(image[a_p.getY()][a_p.getX()+1] == 1){
+                return new Point(a_p.getX()+1, a_p.getY());
+            }
+            if(image[a_p.getY()-1][a_p.getX()+1] == 1){
+                return new Point(a_p.getX()+1, a_p.getY()-1);
+            }
+            if(image[a_p.getY()-1][a_p.getX()] == 1){
+                return new Point(a_p.getX(), a_p.getY()-1);
+            }
+            if(image[a_p.getY()-1][a_p.getX()-1] == 1){
+                return new Point(a_p.getX()-1, a_p.getY()-1);
+            }
+            if(image[a_p.getY()][a_p.getX()-1] == 1){
+                return new Point(a_p.getX()-1, a_p.getY());
+            }
+        }
+        if(a_p.getX() == c_p.getX()-1 && a_p.getY() == c_p.getY()-1){
+            Point start = new Point(a_p.getX()-1, a_p.getY()+1);
+            if(image[a_p.getY()+1][a_p.getX()] == 1){
+                return new Point(a_p.getX(), a_p.getY()+1);
+            }
+            if(image[a_p.getY()+1][a_p.getX()+1] == 1){
+                return new Point(a_p.getX()+1, a_p.getY()+1);
+            }
+            if(image[a_p.getY()][a_p.getX()+1] == 1){
+                return new Point(a_p.getX()+1, a_p.getY());
+            }
+            if(image[a_p.getY()-1][a_p.getX()+1] == 1){
+                return new Point(a_p.getX()+1, a_p.getY()-1);
+            }
+            if(image[a_p.getY()-1][a_p.getX()] == 1){
+                return new Point(a_p.getX(), a_p.getY()-1);
+            }
+            if(image[a_p.getY()-1][a_p.getX()-1] == 1){
+                return new Point(a_p.getX()-1, a_p.getY()-1);
+            }
+            if(image[a_p.getY()][a_p.getX()-1] == 1){
+                return new Point(a_p.getX()-1, a_p.getY());
+            }
+            if(image[a_p.getY()+1][a_p.getX()-1] == 1){
+                return new Point(a_p.getX()-1, a_p.getY()+1);
+            }
+        }
+        if(a_p.getX() == c_p.getX()+1 && a_p.getY() == c_p.getY()-1){
+            Point start = new Point(a_p.getX()-1, a_p.getY()-1);
+            if(image[a_p.getY()][a_p.getX()-1] == 1){
+                return new Point(a_p.getX()-1, a_p.getY());
+            }
+            if(image[a_p.getY()+1][a_p.getX()-1] == 1){
+                return new Point(a_p.getX()-1, a_p.getY()+1);
+            }
+            if(image[a_p.getY()+1][a_p.getX()] == 1){
+                return new Point(a_p.getX(), a_p.getY()+1);
+            }
+            if(image[a_p.getY()+1][a_p.getX()+1] == 1){
+                return new Point(a_p.getX()+1, a_p.getY()+1);
+            }
+            if(image[a_p.getY()][a_p.getX()+1] == 1){
+                return new Point(a_p.getX()+1, a_p.getY());
+            }
+            if(image[a_p.getY()-1][a_p.getX()+1] == 1){
+                return new Point(a_p.getX()+1, a_p.getY()-1);
+            }
+            if(image[a_p.getY()-1][a_p.getX()] == 1){
+                return new Point(a_p.getX(), a_p.getY()-1);
+            }
+            if(image[a_p.getY()-1][a_p.getX()-1] == 1){
+                return new Point(a_p.getX()-1, a_p.getY()-1);/*girmgirmgim*/
             }
         }
         return new Point(0, 0);
