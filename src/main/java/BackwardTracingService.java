@@ -29,7 +29,7 @@ public class BackwardTracingService {
         List<Point> final_matrix = new LinkedList<Point>();
         for(int y = 0; y<points.size(); y++){
             if(points.get(y).to_delete == 0){
-                final_matrix.add(b.get(y));
+                final_matrix.add(points.get(y));
             }
         }
         return final_matrix;
