@@ -26,7 +26,13 @@ public class BackwardTracingService {
                 ((LinkedList<Point>) points).add(backup);
             }
         } while (!endPoint.equals(activePoint));
-        return points;
+        List<Point> final_matrix = new LinkedList<Point>();
+        for(int y = 0; y<points.size(); y++){
+            if(points.get(y).to_delete == 0){
+                final_matrix.add(b.get(y));
+            }
+        }
+        return final_matrix;
     }
     public static Point getDirection(int[][] image, Point c_p, Point a_p){
         if(a_p.getX() == c_p.getX()+1 && a_p.getY() == c_p.getY()+1){
