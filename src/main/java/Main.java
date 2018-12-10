@@ -22,7 +22,7 @@ public class Main {
         int[] rgb = bufferedImage.getRGB(0, 0, w, h, null, 0, w);
         for(int i=0;i<h;i++){
             for(int j=0;j<w;j++){
-                if(BackwardTracingService.rgbRange(rgb[(i*w)+j], rgb[10])){
+                if(BackwardTracingService.rgbRange(rgb[(i*w)+j], rgb[0])){
                     image[i][j] = 0;
                 }
                 else{
