@@ -30,13 +30,7 @@ public class Main {
                 }
             }
         }
-        List<Point> b = BackwardTracingService.getContourPoints(image);
-        List<Point> final_matrix = new LinkedList<Point>();
-        for(int y = 0; y<b.size(); y++){
-            if(b.get(y).to_delete == 0){
-                final_matrix.add(b.get(y));
-            }
-        }
+        List<Point> final_matrix = BackwardTracingService.getContourPoints(image);
         for(int i=0; i<final_matrix.size(); i++){
             rgb[(w * final_matrix.get(i).getY()) + final_matrix.get(i).getX()] = -16726016;
             rgb[(w * final_matrix.get(i).getY()) + final_matrix.get(i).getX() + 1] = -16726016;
